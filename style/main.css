@@ -430,74 +430,74 @@ hr {
 
 .tile.tile-2 .tile-inner {
     font-size: 0px;
-    background-image: url('img/hydrogen-block.png');
+    background-image: url('/img/hydrogen-block.png');
     background-size: cover;
 }
 
 .tile.tile-4 .tile-inner {
     font-size: 0px;
-    background-image: url('img/helium-block.png');
+    background-image: url('/img/helium-block.png');
     background-size: cover;
 }
 
 .tile.tile-8 .tile-inner {
     font-size: 0px;
-    background-image: url('img/lithium-block.png');
+    background-image: url('/img/lithium-block.png');
     background-size: cover;
 }
 
 .tile.tile-16 .tile-inner {
     font-size: 0px;
-    background-image: url('img/beryllium-block.png');
+    background-image: url('/img/beryllium-block.png');
     background-size: cover;
 }
 
 .tile.tile-32 .tile-inner {
     font-size: 0px;
-    background-image: url('img/boron-block.png');
+    background-image: url('/img/boron-block.png');
     background-size: cover;
 }
 
 .tile.tile-64 .tile-inner {
     font-size: 0px;
-    background-image: url('img/carbon-block.png');
+    background-image: url('/img/carbon-block.png');
     background-size: cover;
 }
 
 .tile.tile-128 .tile-inner {
     font-size: 0px;
-    background-image: url('img/nitrogen-block.png');
+    background-image: url('/img/nitrogen-block.png');
     background-size: cover;
 }
 
 .tile.tile-256 .tile-inner {
     font-size: 0px;
-    background-image: url('img/oxygen-block.png');
+    background-image: url('/img/oxygen-block.png');
     background-size: cover;
 }
 
 .tile.tile-512 .tile-inner {
     font-size: 0px;
-    background-image: url('img/flourine-block.png');
+    background-image: url('/img/flourine-block.png');
     background-size: cover;
 }
 
 .tile.tile-1024 .tile-inner {
     font-size: 0px;
-    background-image: url('img/neon-block.png');
+    background-image: url('/img/neon-block.png');
     background-size: cover;
 }
 
 .tile.tile-2048 .tile-inner {
     font-size: 0px;
-    background-image: url('img/sodium-block.png');
+    background-image: url('/img/sodium-block.png');
     /* use ../img/pumpkin-cupcake.jpg for fall */
     background-size: cover;
 }
 
 .tile.tile-super .tile-inner {
     font-size: 0px;
-    background-image: url('img/magnesium-block.png');
+    background-image: url('/img/magnesium-block.png');
     background-size: cover;
 }
 
