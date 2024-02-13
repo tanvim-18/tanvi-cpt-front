@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" onclick="jump()">
+<html lang="en">
   <head>
     <title>SickMathGames</title>
     <!-- Required meta tags -->
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./styles/bird-gfx.css">
     <link rel="stylesheet" href="./styles/game-top-5.css">
   </head>
-  <body>
+  <body onclick="jump()">
       <header class="site-header">
         <a class="site-logo" href="index.html">
           <div class="site-name">
@@ -88,8 +88,36 @@
           </div>
         </div>
       </div>
+      <script>
+        document.addEventListener("keydown", event => {
+          if (event.code === "ArrowUp") {
+            moveUp();
+          } else if (event.code === "ArrowDown") {
+            moveDown();
+          }
+        });
+
+        function moveUp() {
+          let character = document.getElementById("character");
+          let characterPosition = character.getBoundingClientRect();
+          let game = document.getElementById("game");
+          let gamePosition = game.getBoundingClientRect();
+
+          if (characterPosition.top > gamePosition.top) {
+            character.style.top = characterPosition.top - 20 + "px"; // Adjust the value for desired movement speed
+          }
+        }
+
+        function moveDown() {
+          let character = document.getElementById("character");
+          let characterPosition = character.getBoundingClientRect();
+          let game = document.getElementById("game");
+          let gamePosition = game.getBoundingClientRect();
+
+          if (characterPosition.bottom < gamePosition.bottom) {
+            character.style.top = characterPosition.top + 20 + "px"; // Adjust the value for desired movement speed
+          }
+        }
+      </script>
   </body>
-  <script src="./javascript/flappyScript.js"></script>
-  <script src="js/keyboard_input_manager.js"></script>
-  <script src="js/application.js"></script>
 </html>
