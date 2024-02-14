@@ -2,14 +2,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #fff; /* Change background color to white */
+    background-color: white; /* Change background color to white */
     position: absolute;
     left: 50%;
-    top: 45%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
     width: 500px;
     height: 400px;
-    margin-left: -250px; /* Adjust margin-left to center the container */
-    margin-top: -200px; /* Adjust margin-top to center the container */
     padding: 100px;
     border-radius: 20px;
 }
