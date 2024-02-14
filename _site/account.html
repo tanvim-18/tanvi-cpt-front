@@ -1,197 +1,72 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>SickMathGames</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="./styles/general.css">
-    <link rel="stylesheet" href="./styles/site-header.css">
-    <link rel="stylesheet" href="./styles/main-nav-container.css">
-  </head>
-  <body>
-    <header class="site-header">
-        <a class="site-logo" href="index.html">
-          <div class="site-name">
-            <img src="images/math-icon.png">
-            <p>SickMathGames.com</p>
-          </div>
-        </a>
-    </header>
-    <nav class="main-nav-container">
-        <a href="javascript:history.back()" class="back-button"><img src="images/back-icon.png" width="60px"></div>
-        <a class="main-nav-title">Account</a>
-    </nav>
-  </body>
-</html>
-<html lang="en">
-  <form id="loginForm" action="login.php" method="post">
-    <!-- Your login form fields (e.g., username and password) go here -->
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Login</button>
-</form>
-
 <head>
-<script>
-    //import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
-    function login_user() {
-      const enteredUid = document.getElementById("uid").value;
-      const enteredPassword = document.getElementById("password").value;
-      console.log("Uid = " + enteredUid)
-      console.log("Password = " + enteredPassword)
-      const signupHeaders = new Headers();
-      signupHeaders.set('111', '222');
-      signupHeaders.set("Accept", "*/*");
-      signupHeaders.set("Accept-Language", "en-US,en;q=0.9");
-      signupHeaders.set("Content-Type", "application/json");
-
-      login_api(enteredUid,enteredPassword)
-        
-      }
-    
-
-    function login_api(uid, pw){
-      var myHeaders = new Headers();
-      myHeaders.append("Accept", "*/*");
-      myHeaders.append("Accept-Language", "en-US,en;q=0.9");
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Cookie", "jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfdWlkIjoidG9ueSJ9.jEShka0oXI1-uCuSTfo3ed5WRw3ASLNV0Tpn1kc5GB0");
-
-
-      var raw = JSON.stringify({
-          "uid": uid,
-          "password": pw
-        });
-
-      var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        };
-
-      fetch("http://127.0.0.1:8086/api/users/authenticate", requestOptions)
-          .then(response => {
-            if (response.ok) {
-                console.log("User logged in successfully");
-                window.location.href = "http://127.0.0.1:4200/student//2024/01/23/chemicalmerge.html"
-              } else {
-                console.error("User login failed");
-                // You can handle failed login attempts here
-                const errorMessageDiv = document.getElementById('errorMessage');
-                errorMessageDiv.innerHTML = '<label style="color: red;">User Login Failed</label>';
-              }
-          })
-          .then(result => { 
-            console.log(result);
-            
-            })
-          .catch(error => console.log('error', error));
-          
-
-      
-      //return response
-    }
-
-
-  </script>
+  <title>Login Page</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
   <link rel="stylesheet" href="styles.css"> <!-- Include the compiled CSS file -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0; /* Set your desired background color */
+    }
+
+    .login-container {
+      width: 300px; /* Adjust width as needed */
+      padding: 20px;
+      background-color: #fff; /* Set your desired background color */
+      border-radius: 8px; /* Add rounded corners if desired */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-container form {
+      text-align: center;
+    }
+
+    .login-container p {
+      margin-bottom: 15px;
+    }
+
+    .login-container button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff; /* Set your desired button color */
+      color: #fff; /* Set text color */
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #0056b3; /* Set hover color */
+    }
+  </style>
 </head>
-
 <body>
-  <head>
-    <script>
-        //import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-    
-        function login_user() {
-          const enteredUid = document.getElementById("uid").value;
-          const enteredPassword = document.getElementById("password").value;
-          console.log("Uid = " + enteredUid)
-          console.log("Password = " + enteredPassword)
-          const signupHeaders = new Headers();
-          signupHeaders.set('111', '222');
-          signupHeaders.set("Accept", "*/*");
-          signupHeaders.set("Accept-Language", "en-US,en;q=0.9");
-          signupHeaders.set("Content-Type", "application/json");
-    
-          login_api(enteredUid,enteredPassword)
-            
-          }
-        
-    
-        function login_api(uid, pw){
-          var myHeaders = new Headers();
-          myHeaders.append("Accept", "*/*");
-          myHeaders.append("Accept-Language", "en-US,en;q=0.9");
-          myHeaders.append("Content-Type", "application/json");
-          myHeaders.append("Cookie", "jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfdWlkIjoidG9ueSJ9.jEShka0oXI1-uCuSTfo3ed5WRw3ASLNV0Tpn1kc5GB0");
-    
-    
-          var raw = JSON.stringify({
-              "uid": uid,
-              "password": pw
-            });
-    
-          var requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: raw,
-              redirect: 'follow'
-            };
-    
-          fetch("http://127.0.0.1:8086/api/users/authenticate", requestOptions)
-              .then(response => {
-                if (response.ok) {
-                    console.log("User logged in successfully");
-                    window.location.href = "http://127.0.0.1:4100/index.html"
-                  } else {
-                    console.error("User login failed");
-                    // You can handle failed login attempts here
-                    const errorMessageDiv = document.getElementById('errorMessage');
-                    errorMessageDiv.innerHTML = '<label style="color: red;">User Login Failed</label>';
-                  }
-              })
-              .then(result => { 
-                console.log(result);
-                
-                })
-              .catch(error => console.log('error', error));
-              
-    
-          
-          //return response
-        }
-    
-    
-      </script>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Login Page</title>
-      <link rel="stylesheet" href="styles.css"> <!-- Include the compiled CSS file -->
-    </head>
-    
-    <body>
-      <!-- Your HTML login form -->
-      <div id="errorMessage"></div>
-      <form action="javascript:login_user()">
-        <p><label for="uid">User ID:</label>
-          <input type="text" name="uid" id="uid" required>
-        </p>
-        <p><label for="password">Password:</label>
-          <input type="password" name="password" id="password" required>
-        </p>
-        <p>
-         <button class="button-spacing">Log In</button>
-              <button onClick = "window.location.href ='http://127.0.0.1:4200/student//2024/01/31/signup.html'" class="button-spacing" >Sign Up</button>
-       </p>
-      </form>
-    
-    </body>
-    </html>
-
+  <div class="login-container">
+    <h2>Login</h2>
+    <div id="errorMessage"></div>
+    <form action="javascript:login_user()">
+      <p><label for="uid">User ID:</label>
+        <input type="text" name="uid" id="uid" required>
+      </p>
+      <p><label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+      </p>
+      <p>
+        <button class="button-spacing">Log In</button>
+        <button onClick="window.location.href ='http://127.0.0.1:4200/student//2024/01/31/signup.html'" class="button-spacing">Sign Up</button>
+      </p>
+    </form>
+  </div>
+</body>
+</html>
