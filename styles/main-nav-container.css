@@ -1,21 +1,19 @@
-.main-nav-container{
+.main-nav-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-    background-color: rgb(99, 99, 99);
-    
-    position:    absolute;
-    left:        50%; 
-    top:         45%;
-    width:       500px;    
-    height:      400px;     
-    margin-left: -350px;     
-    margin-top:  -300px;
+    background-color: #fff; /* Change background color to white */
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    width: 500px;
+    height: 400px;
+    margin-left: -250px; /* Adjust margin-left to center the container */
+    margin-top: -200px; /* Adjust margin-top to center the container */
     padding: 100px;
     border-radius: 20px;
-
 }
+
 
 .main-nav-title{
     text-align: center;
