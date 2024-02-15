@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game High Scores</title>
+  <style>
+    /* Add your custom styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>High Scores for 2048 Elements</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player Name</th>
+        <th>Score</th>
+        <!-- Add more columns as needed -->
+      </tr>
+    </thead>
+    <tbody id="highScoresBody">
+      <!-- High scores will be dynamically inserted here using JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch high scores from your API or load from a JSON file
+    // Example: Replace this with your actual endpoint or file
+    const highScoresEndpoint = 'https://example.com/api/highscores';
+
+    // Fetch high scores and update the table
+    fetch(highScoresEndpoint)
+      .then(response => response.json())
+      .then(data => {
+        const highScoresBody = document.getElementById('highScoresBody');
+
+        // Clear existing rows
+        highScoresBody.innerHTML = '';
+
+        // Populate the table with high scores
+        data.forEach((score, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${score.playerName}</td>
+            <td>${score.score}</td>
+            <!-- Add more cells for additional data -->
+          `;
+          highScoresBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching high scores:', error));
+  </script>
+</body>
+</html>
