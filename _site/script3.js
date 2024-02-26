@@ -1,16 +1,23 @@
 // game3.js
 
 let gameRunning = false;
+let gameContainer = document.getElementById("game-container");
 let rodTop = document.getElementById("rod-top") || createRod("rod-top");
 let rodBottom = document.getElementById("rod-bottom") || createRod("rod-bottom");
 let ball = document.getElementById("ball") || createBall();
-let gameContainer = document.getElementById("game-container");
 let aPressed = false;
 let dPressed = false;
 let score = 0;
 let Vx = -1;
 let Vy = -5;
 let Vel = Math.sqrt(Math.pow(Vx, 2) + Math.pow(Vy, 2));
+
+// Game configuration
+let gameConfig = {
+    paddleSpeed: 4,
+    ballSpeed: { x: -1, y: -5 },
+    acceleration: 0.2
+};
 
 // Create start and stop buttons dynamically if not already present
 const startButton = document.getElementById("start-button") || createButton("Start", startGame, "start-button");
@@ -78,13 +85,16 @@ function keyUpHandler(event) {
 }
 
 function movePaddles() {
+    const paddleSpeed = gameConfig.paddleSpeed;
+
     if (aPressed && rodTop.offsetLeft > 1) {
-        rodTop.style.left = rodTop.offsetLeft - 4 + "px";
-        rodBottom.style.left = rodBottom.offsetLeft - 4 + "px";
+        rodTop.style.left = rodTop.offsetLeft - paddleSpeed + "px";
+        rodBottom.style.left = rodBottom.offsetLeft - paddleSpeed + "px";
     }
+
     if (dPressed && rodTop.offsetLeft < gameContainer.offsetWidth - rodTop.offsetWidth) {
-        rodTop.style.left = rodTop.offsetLeft + 4 + "px";
-        rodBottom.style.left = rodBottom.offsetLeft + 4 + "px";
+        rodTop.style.left = rodTop.offsetLeft + paddleSpeed + "px";
+        rodBottom.style.left = rodBottom.offsetLeft + paddleSpeed + "px";
     }
 }
 
@@ -112,6 +122,9 @@ function checkCollision(activePaddle) {
 
 function gameLoop() {
     if (gameRunning) {
+        const ballSpeed = gameConfig.ballSpeed;
+        const acceleration = gameConfig.acceleration;
+
         if (ball.offsetLeft < 0 || ball.offsetLeft > gameContainer.offsetWidth - ball.offsetWidth) {
             Vx = -Vx;
         }
@@ -138,7 +151,7 @@ function gameLoop() {
                 angle = ballcenterX < paddlecenterX ? -3 * Math.PI / 4 : ballcenterX > paddlecenterX ? -Math.PI / 4 : Math.PI / 2;
             }
 
-            Vel = Vel + 0.2;
+            Vel = Vel + acceleration;
             Vx = Vel * Math.cos(angle);
             Vy = Vel * Math.sin(angle);
         }
