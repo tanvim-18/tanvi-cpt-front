@@ -14,7 +14,7 @@ let Vel = Math.sqrt(Math.pow(Vx, 2) + Math.pow(Vy, 2));
 
 // Game configuration
 let gameConfig = {
-    paddleSpeed: parseFloat(Document.getElementById("paddle-speed").value),
+    paddleSpeed: parseFloat(document.getElementById("paddle-speed").value),
     ballSpeed: { x: -1, y: -5 },
     acceleration: 0.2
 };
