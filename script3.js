@@ -1,4 +1,4 @@
-// game.js
+// game3.js
 
 let gameRunning = false;
 let rodTop = document.getElementById("rod-top") || createRod("rod-top");
