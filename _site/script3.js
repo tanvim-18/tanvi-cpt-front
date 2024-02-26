@@ -31,12 +31,6 @@ if (!document.getElementById("stop-button")) {
     document.body.appendChild(stopButton);
 }
 
-// Create settings panel dynamically
-const settingsPanel = document.getElementById("settings-panel") || createSettingsPanel();
-if (!document.getElementById("settings-panel")) {
-    document.body.appendChild(settingsPanel);
-}
-
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
 
@@ -60,44 +54,6 @@ function createBall() {
     ball.id = "ball";
     // Set other styles and properties for the ball
     return ball;
-}
-
-function createSettingsPanel() {
-    const panel = document.createElement("div");
-    panel.id = "settings-panel";
-    panel.innerHTML = `
-        <h2>Game Settings</h2>
-        <form id="settings-form">
-            <label for="paddle-speed">Paddle Speed:</label>
-            <input type="number" id="paddle-speed" value="${gameConfig.paddleSpeed}">
-
-            <label for="ball-speed">Ball Speed:</label>
-            <input type="number" id="ball-speed-x" placeholder="X" value="${gameConfig.ballSpeed.x}">
-            <input type="number" id="ball-speed-y" placeholder="Y" value="${gameConfig.ballSpeed.y}">
-
-            <label for="acceleration">Acceleration:</label>
-            <input type="number" id="acceleration" value="${gameConfig.acceleration}">
-
-            <button type="button" onclick="applySettings()">Apply Settings</button>
-        </form>
-    `;
-    return panel;
-}
-
-function applySettings() {
-    const paddleSpeedInput = document.getElementById("paddle-speed");
-    const ballSpeedXInput = document.getElementById("ball-speed-x");
-    const ballSpeedYInput = document.getElementById("ball-speed-y");
-    const accelerationInput = document.getElementById("acceleration");
-
-    gameConfig.paddleSpeed = parseFloat(paddleSpeedInput.value) || gameConfig.paddleSpeed;
-    gameConfig.ballSpeed.x = parseFloat(ballSpeedXInput.value) || gameConfig.ballSpeed.x;
-    gameConfig.ballSpeed.y = parseFloat(ballSpeedYInput.value) || gameConfig.ballSpeed.y;
-    gameConfig.acceleration = parseFloat(accelerationInput.value) || gameConfig.acceleration;
-
-    Vel = Math.sqrt(Math.pow(gameConfig.ballSpeed.x, 2) + Math.pow(gameConfig.ballSpeed.y, 2));
-    Vx = gameConfig.ballSpeed.x;
-    Vy = gameConfig.ballSpeed.y;
 }
 
 function startGame() {
@@ -191,4 +147,20 @@ function gameLoop() {
 
             if (rod == rodTop) {
                 angle = ballcenterX < paddlecenterX ? 3 * Math.PI / 4 : ballcenterX > paddlecenterX ? Math.PI / 4 : 0;
-            } else if (rod == rod
+            } else if (rod == rodBottom) {
+                angle = ballcenterX < paddlecenterX ? -3 * Math.PI / 4 : ballcenterX > paddlecenterX ? -Math.PI / 4 : Math.PI / 2;
+            }
+
+            Vel = Vel + acceleration;
+            Vx = Vel * Math.cos(angle);
+            Vy = Vel * Math.sin(angle);
+        }
+
+        ball.style.top = ball.offsetTop + Vy + "px";
+        ball.style.left = ball.offsetLeft + Vx + "px";
+
+        movePaddles();
+
+        requestAnimationFrame(gameLoop);
+    }
+}
