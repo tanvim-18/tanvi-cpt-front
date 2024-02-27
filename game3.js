@@ -119,6 +119,7 @@ const pipe = {
     }
   },
 };
+
 const bird = {
   animations: [
     { sprite: new Image() },
@@ -129,7 +130,7 @@ const bird = {
   rotatation: 0,
   x: 50,
   y: 100,
-  speed: 0,
+  speed: 5,
   gravity: 0.125,
   thrust: 3.6,
   frame: 0,
@@ -300,10 +301,10 @@ UI.gameOver.sprite.src = "img/go.png";
 UI.getReady.sprite.src = "img/getready.png";
 UI.tap[0].sprite.src = "img/tap/t0.png";
 UI.tap[1].sprite.src = "img/tap/t1.png";
-bird.animations[0].sprite.src = "img/bird/b0.png";
-bird.animations[1].sprite.src = "img/bird/b1.png";
-bird.animations[2].sprite.src = "img/bird/b2.png";
-bird.animations[3].sprite.src = "img/bird/b0.png";
+bird.animations[0].sprite.src = "img/flappy scientist.png";
+bird.animations[1].sprite.src = "img/bird/flappy scientist.png";
+bird.animations[2].sprite.src = "img/bird/flappy scientist.png";
+bird.animations[3].sprite.src = "img/bird/flappy scientist.png";
 SFX.start.src = "sfx/start.wav";
 SFX.flap.src = "sfx/flap.wav";
 SFX.score.src = "sfx/score.wav";
@@ -335,3 +336,5 @@ function draw() {
 }
 
 setInterval(gameLoop, 20);
+
+
