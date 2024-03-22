@@ -50,63 +50,115 @@ function calculateProbability() {
   resultElement.innerHTML = "Probability of getting a score above 9.0: " + probability.toFixed(2) + "%";
 }
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Prediction</title>
+</head>
+<body>
+    <h1>Score Prediction</h1>
+    <div>
+        <label for="subjectInput">Subject (0: Science, 1: Math, 2: History, 3: English)</label><br>
+        <input type="number" id="subjectInput" placeholder="Enter subject"><br><br>
 
+        <label for="attentionInput">Attention (Type 'focused' or 'divided')</label><br>
+        <input type="text" id="attentionInput" placeholder="Enter attention"><br><br>
+
+        <label for="solutionsInput">Solutions (0-4)</label><br>
+        <input type="number" id="solutionsInput" placeholder="Enter solutions"><br><br>
+
+        <button onclick="predictScore()">Predict Score</button>
+    </div>
+
+    <div id="predictionResult"></div>
+
+    <script>
+        function predictScore() {
+            var subject = parseInt(document.getElementById("subjectInput").value);
+            var attention = document.getElementById("attentionInput").value;
+            var solutions = parseInt(document.getElementById("solutionsInput").value);
+
+            // Load and process CSV data
+            var data = [
+    { subject: 0, attention: 'focused', solutions: 0, score: 8.2 },
+    { subject: 1, attention: 'divided', solutions: 2, score: 9.5 },
+    { subject: 2, attention: 'focused', solutions: 3, score: 8.9 },
+    { subject: 3, attention: 'divided', solutions: 1, score: 7.8 },
+    { subject: 4, attention: 'focused', solutions: 2, score: 7.3 },
+    { subject: 5, attention: 'divided', solutions: 0, score: 8.1 },
+    { subject: 6, attention: 'focused', solutions: 1, score: 9.7 },
+    { subject: 7, attention: 'divided', solutions: 3, score: 6.5 },
+    { subject: 8, attention: 'focused', solutions: 2, score: 8.4 },
+    { subject: 9, attention: 'divided', solutions: 1, score: 9.2 },
+    { subject: 10, attention: 'focused', solutions: 0, score: 7.6 },
+    { subject: 11, attention: 'divided', solutions: 2, score: 9.8 },
+    { subject: 12, attention: 'focused', solutions: 3, score: 8.7 },
+    { subject: 13, attention: 'divided', solutions: 1, score: 7.2 },
+    { subject: 14, attention: 'focused', solutions: 2, score: 8.3 },
+    { subject: 15, attention: 'divided', solutions: 0, score: 9.4 },
+    { subject: 16, attention: 'focused', solutions: 1, score: 8.5 },
+    { subject: 17, attention: 'divided', solutions: 3, score: 6.9 },
+    { subject: 18, attention: 'focused', solutions: 2, score: 9.1 },
+    { subject: 19, attention: 'divided', solutions: 1, score: 7.4 },
+    { subject: 20, attention: 'focused', solutions: 0, score: 8.6 },
+    { subject: 21, attention: 'divided', solutions: 2, score: 9.9 },
+    { subject: 22, attention: 'focused', solutions: 3, score: 8.8 },
+    { subject: 23, attention: 'divided', solutions: 1, score: 7.1 },
+    { subject: 24, attention: 'focused', solutions: 2, score: 8.7 },
+    { subject: 25, attention: 'divided', solutions: 0, score: 9.3 },
+    { subject: 26, attention: 'focused', solutions: 1, score: 8.1 },
+    { subject: 27, attention: 'divided', solutions: 3, score: 6.8 },
+    { subject: 28, attention: 'focused', solutions: 2, score: 8.9 },
+    { subject: 29, attention: 'divided', solutions: 1, score: 7.7 },
+    { subject: 30, attention: 'focused', solutions: 0, score: 9.0 },
+    { subject: 31, attention: 'divided', solutions: 2, score: 9.6 },
+    { subject: 32, attention: 'focused', solutions: 3, score: 8.4 },
+    { subject: 33, attention: 'divided', solutions: 1, score: 7.5 },
+    { subject: 34, attention: 'focused', solutions: 2, score: 8.2 },
+    { subject: 35, attention: 'divided', solutions: 0, score: 9.1 },
+    { subject: 36, attention: 'focused', solutions: 1, score: 8.3 },
+    { subject: 37, attention: 'divided', solutions: 3, score: 6.6 },
+    { subject: 38, attention: 'focused', solutions: 2, score: 9.2 },
+    { subject: 39, attention: 'divided', solutions: 1, score: 7.9 },
+    { subject: 40, attention: 'focused', solutions: 0, score: 9.5 },
+    { subject: 41, attention: 'divided', solutions: 2, score: 9.7 },
+    { subject: 42, attention: 'focused', solutions: 3, score: 8.6 },
+    { subject: 43, attention: 'divided', solutions: 1, score: 7.3 },
+    { subject: 44, attention: 'focused', solutions: 2, score: 8.8 },
+    { subject: 45, attention: 'divided', solutions: 0, score: 9.4 },
+    { subject: 46, attention: 'focused', solutions: 1, score: 8.4 },
+    { subject: 47, attention: 'divided', solutions: 3, score: 6.7 },
+    { subject: 48, attention: 'focused', solutions: 2, score: 9.0 },
+    { subject: 49, attention: 'divided', solutions: 1, score: 7.6 },
+    { subject: 50, attention: 'focused', solutions: 0, score: 9.3 },
+    { subject: 51, attention: 'divided', solutions: 2, score: 9.8 },
+    { subject: 52, attention: 'focused', solutions: 3, score: 8.5 },
+    { subject: 53, attention: 'divided', solutions: 1, score: 7.2 },
+    { subject: 54, attention: 'focused', solutions: 2, score: 8.5 },
+            ];
+
+            // Filter data based on user input
+            var filteredData = data.filter(function(row) {
+                return row.subject === subject && row.attention === attention && row.solutions === solutions;
+            });
+
+            // If no matching data found, display error message
+            if (filteredData.length === 0) {
+                document.getElementById("predictionResult").innerText = "No data found for the provided input.";
+                return;
+            }
+
+            // Calculate average score
+            var totalScore = filteredData.reduce(function(acc, curr) {
+                return acc + curr.score;
+            }, 0);
+            var averageScore = totalScore / filteredData.length;
+
+            // Display prediction result
+            document.getElementById("predictionResult").innerText = "Predicted Score: " + averageScore.toFixed(2);
+        }
+    </script>
 </body>
 </html>
-import seaborn as sns
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-
-# Load the attention dataset using Seaborn
-attention_data = sns.load_dataset('attention')
-
-# Display the columns and a sample of the dataset
-print("Attention Data Columns:")
-print(attention_data.columns)
-print("\nSample of the Attention Data:")
-print(attention_data[['subject', 'attention', 'solutions', 'score']].head())
-
-# Split the data into features (X) and target (y)
-X = attention_data[['subject', 'attention', 'solutions']]
-y = attention_data['score']
-
-# Define a preprocessing pipeline
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('cat', OneHotEncoder(), ['attention'])
-    ],
-    remainder='passthrough'
-)
-
-# Define the linear regression model
-regressor = LinearRegression()
-
-# Create a pipeline with preprocessing and linear regression
-pipeline = Pipeline([
-    ('preprocessor', preprocessor),
-    ('regressor', regressor)
-])
-
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-# Fit the pipeline on the training data
-pipeline.fit(X_train, y_train)
-
-# Define a new observation (similar to a passenger)
-new_observation = pd.DataFrame({
-    'subject': [6],  # Assuming the next subject ID is 6
-    'attention': ['divided'],
-    'solutions': [1]
-})
-
-# Predict the score for the new observation
-score_prediction = pipeline.predict(new_observation)
-
-# Print the predicted score
-print('\nPredicted Score:')
-print(score_prediction[0])
