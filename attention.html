@@ -1,113 +1,50 @@
-
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Probability Calculator</title>
-</head>
-<body>
-
-<h2>Probability Calculator of Score above 9.0/10.0</h2>
-
-<!-- Questions -->
-<div>
-  <label for="subjectInput">Subject: 0 for Science, 1 for Math, 2 for History, 3 for English</label><br>
-  <input type="number" id="subjectInput" placeholder="text here"><br><br>
-
-  <label for="attentionInput">Attention: type 'focused' or 'divided'</label><br>
-  <input type="text" id="attentionInput" placeholder="text here"><br><br>
-
-  <label for="solutionsInput">Solutions: number of solutions you found 0-4</label><br>
-  <input type="number" id="solutionsInput" placeholder="text here"><br><br>
-</div>
-
-<!-- Button to Calculate Probability -->
-<div>
-  <button onclick="calculateProbability()">Calculate Probability</button>
-</div>
-
-<!-- Display Probability -->
-<div id="probabilityResult"></div>
-
-<script>
-function calculateProbability() {
-  // Get inputs
-  var subject = parseInt(document.getElementById("subjectInput").value);
-  var attention = document.getElementById("attentionInput").value;
-  var solutions = parseInt(document.getElementById("solutionsInput").value);
-
-  // Validate inputs
-  if (isNaN(subject) || isNaN(solutions) || (attention !== 'focused' && attention !== 'divided')) {
-    alert("Please enter valid inputs.");
-    return;
-  }
-
-  // Simulate calculation (replace with actual API call)
-  var probability = Math.random() * 100; // Random probability between 0 and 100
-
-  // Display result
-  var resultElement = document.getElementById("probabilityResult");
-  resultElement.innerHTML = "Probability of getting a score above 9.0: " + probability.toFixed(2) + "%";
-}
-</script>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Regression Prediction</title>
-</head>
-<body>
-
-    <h2>Linear Regression Prediction</h2>
-
-    <!-- Input fields for subject, attention, and solutions -->
-    <label for="subjectInput">Subject (Number):</label>
-    <input type="number" id="subjectInput" placeholder="Enter subject ID">
-
-    <label for="attentionInput">Attention Type:</label>
-    <input type="text" id="attentionInput" placeholder="Type 'focused' or 'divided'">
-
-    <label for="solutionsInput">Number of Solutions:</label>
-    <input type="number" id="solutionsInput" placeholder="Enter a number between 0 and 4">
-
-    <!-- Button to trigger prediction -->
-    <button onclick="predictScore()">Predict Score</button>
-
-    <!-- Display area for predicted score -->
-    <div id="predictedScore"></div>
-
-    <!-- JavaScript to handle prediction -->
+    <title>Probability Calculator</title>
     <script>
-        function predictScore() {
-            // Retrieve user inputs
+        function calculateProbability() {
             var subject = document.getElementById("subjectInput").value;
             var attention = document.getElementById("attentionInput").value;
             var solutions = document.getElementById("solutionsInput").value;
 
-            // Create a JSON object representing the new observation
-            var newObservation = {
-                'subject': parseInt(subject),
-                'attention': attention,
-                'solutions': parseInt(solutions)
-            };
-
-            // Send the new observation to the backend for prediction
-            fetch('/predict_score', {
+            fetch('/hacks/predict_probability/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newObservation)
+                body: JSON.stringify({
+                    subject: subject,
+                    attention: attention,
+                    solutionsInput: solutions
+                })
             })
             .then(response => response.json())
             .then(data => {
-                // Display the predicted score
-                document.getElementById("predictedScore").innerText = "Predicted Score: " + data.predicted_score;
+                alert("Probability of getting a score above 9.0: " + data.probability.toFixed(2) + "%");
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
+</head>
+<body>
+    <h1>Probability Calculator</h1>
 
+    <label for="subjectInput">Subject:</label>
+    <input type="text" id="subjectInput" placeholder="Type here">
+
+    <label for="attentionInput">Attention:</label>
+    <input type="text" id="attentionInput" placeholder="Type here">
+
+    <label for="solutionsInput">Solutions:</label>
+    <input type="text" id="solutionsInput" placeholder="Type here">
+
+    <div>
+        <button onclick="calculateProbability()">Calculate Probability of score above 9.0/10.0</button>
+    </div>
 </body>
 </html>
