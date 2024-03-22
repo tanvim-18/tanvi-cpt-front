@@ -86,7 +86,7 @@ function calculateProbability() {
             var solutions = parseInt(document.getElementById("solutionsInput").value);
 
             // Load attention.csv data
-            var data = [attention.csv];
+            var attention_data = [ ];
 
             // Fetch the data from attention.csv file
             fetch('attention.csv')
