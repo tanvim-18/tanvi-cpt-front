@@ -50,7 +50,7 @@ function calculateProbability() {
   resultElement.innerHTML = "Probability of getting a score above 9.0: " + probability.toFixed(2) + "%";
 }
 </script>
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,27 +86,42 @@ function calculateProbability() {
             var solutions = parseInt(document.getElementById("solutionsInput").value);
 
             // Load attention.csv data
-            var data = [
-                { subject: 0, attention: 'focused', solutions: 0, score: 8.2 },
-                { subject: 1, attention: 'divided', solutions: 2, score: 9.5 },
-                { subject: 2, attention: 'focused', solutions: 3, score: 8.9 },
-                // Add more data here...
-            ];
+            var data = [];
 
-            // Filter data based on user inputs
-            var filteredData = data.filter(function(row) {
-                return row.subject === subject && row.attention === attention && row.solutions === solutions;
-            });
+            // Fetch the data from attention.csv file
+            fetch('attention.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    // Parse the CSV text
+                    var rows = csvText.split('\n');
+                    var headers = rows[0].split(',');
+                    for (var i = 1; i < rows.length; i++) {
+                        var values = rows[i].split(',');
+                        var rowObject = {};
+                        for (var j = 0; j < headers.length; j++) {
+                            rowObject[headers[j].trim()] = values[j].trim();
+                        }
+                        data.push(rowObject);
+                    }
 
-            // Calculate average score
-            var totalScore = 0;
-            for (var i = 0; i < filteredData.length; i++) {
-                totalScore += filteredData[i].score;
-            }
-            var averageScore = filteredData.length > 0 ? totalScore / filteredData.length : 0;
+                    // Filter data based on user inputs
+                    var filteredData = data.filter(function(row) {
+                        return parseInt(row.subject) === subject && row.attention === attention && parseInt(row.solutions) === solutions;
+                    });
 
-            // Display the predicted score
-            document.getElementById("predictedScore").innerText = "Predicted Score: " + averageScore.toFixed(2);
+                    // Calculate average score
+                    var totalScore = 0;
+                    for (var i = 0; i < filteredData.length; i++) {
+                        totalScore += parseFloat(filteredData[i].score);
+                    }
+                    var averageScore = filteredData.length > 0 ? totalScore / filteredData.length : 0;
+
+                    // Display the predicted score
+                    document.getElementById("predictedScore").innerText = "Predicted Score: " + averageScore.toFixed(2);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         }
     </script>
 
