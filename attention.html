@@ -66,7 +66,7 @@ function calculateProbability() {
         <label for="attentionInput">Attention (Type 'focused' or 'divided')</label><br>
         <input type="text" id="attentionInput" placeholder="Enter attention"><br><br>
 
-        <label for="solutionsInput">Solutions (0-4)</label><br>
+        <label for="solutionsInput">Solutions (1-3)</label><br>
         <input type="number" id="solutionsInput" placeholder="Enter solutions"><br><br>
 
         <button onclick="predictScore()">Predict Score</button>
@@ -137,7 +137,38 @@ function calculateProbability() {
     { subject: 52, attention: 'focused', solutions: 3, score: 8.5 },
     { subject: 53, attention: 'divided', solutions: 1, score: 7.2 },
     { subject: 54, attention: 'focused', solutions: 2, score: 8.5 },
-            ];
+    { subject: 60, attention: 'focused', solutions: 1, score: 6.0 },
+    { subject: 61, attention: 'focused', solutions: 1, score: 5.0 },
+    { subject: 62, attention: 'focused', solutions: 1, score: 8.0 },
+    { subject: 63, attention: 'focused', solutions: 1, score: 4.0 },
+    { subject: 64, attention: 'focused', solutions: 1, score: 9.0 },
+    { subject: 65, attention: 'focused', solutions: 1, score: 7.0 },
+    { subject: 66, attention: 'focused', solutions: 1, score: 6.0 },
+    { subject: 67, attention: 'focused', solutions: 1, score: 3.0 },
+    { subject: 68, attention: 'focused', solutions: 1, score: 10.0 },
+    { subject: 69, attention: 'focused', solutions: 1, score: 5.0 },
+    { subject: 70, attention: 'focused', solutions: 1, score: 7.0 },
+    { subject: 71, attention: 'focused', solutions: 2, score: 6.0 },
+    { subject: 72, attention: 'focused', solutions: 2, score: 8.0 },
+    { subject: 73, attention: 'focused', solutions: 2, score: 7.0 },
+    { subject: 74, attention: 'focused', solutions: 2, score: 10.0 },
+    { subject: 75, attention: 'focused', solutions: 2, score: 9.0 },
+    { subject: 76, attention: 'focused', solutions: 2, score: 6.0 },
+    { subject: 77, attention: 'focused', solutions: 2, score: 8.0 },
+    { subject: 78, attention: 'focused', solutions: 2, score: 5.0 },
+    { subject: 79, attention: 'focused', solutions: 2, score: 7.0 },
+    { subject: 80, attention: 'focused', solutions: 2, score: 8.0 },
+    { subject: 71, attention: 'focused', solutions: 3, score: 9.0 },
+    { subject: 72, attention: 'focused', solutions: 3, score: 10.0 },
+    { subject: 73, attention: 'focused', solutions: 3, score: 8.0 },
+    { subject: 74, attention: 'focused', solutions: 3, score: 9.0 },
+    { subject: 75, attention: 'focused', solutions: 3, score: 8.5 },
+    { subject: 76, attention: 'focused', solutions: 3, score: 7.5 },
+    { subject: 77, attention: 'focused', solutions: 3, score: 9.0 },
+    { subject: 78, attention: 'focused', solutions: 3, score: 10.0 },
+    { subject: 79, attention: 'focused', solutions: 3, score: 9.5 },
+    { subject: 80, attention: 'focused', solutions: 3, score: 9.0 }
+];
 
             // Filter data based on user input
             var filteredData = data.filter(function(row) {
