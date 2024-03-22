@@ -53,80 +53,60 @@ function calculateProbability() {
 
 </body>
 </html>
+import seaborn as sns
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Score Prediction</title>
-</head>
-<body>
+# Load the attention dataset using Seaborn
+attention_data = sns.load_dataset('attention')
 
-    <h2>Score Prediction</h2>
+# Display the columns and a sample of the dataset
+print("Attention Data Columns:")
+print(attention_data.columns)
+print("\nSample of the Attention Data:")
+print(attention_data[['subject', 'attention', 'solutions', 'score']].head())
 
-    <!-- Input fields for subject, attention, and solutions -->
-    <label for="subjectInput">Subject (0: Science, 1: Math, 2: History, 3: English):</label>
-    <input type="number" id="subjectInput" placeholder="Enter subject ID">
+# Split the data into features (X) and target (y)
+X = attention_data[['subject', 'attention', 'solutions']]
+y = attention_data['score']
 
-    <label for="attentionInput">Attention Type:</label>
-    <input type="text" id="attentionInput" placeholder="Type 'focused' or 'divided'">
+# Define a preprocessing pipeline
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('cat', OneHotEncoder(), ['attention'])
+    ],
+    remainder='passthrough'
+)
 
-    <label for="solutionsInput">Number of Solutions (0-4):</label>
-    <input type="number" id="solutionsInput" placeholder="Enter a number between 0 and 4">
+# Define the linear regression model
+regressor = LinearRegression()
 
-    <!-- Button to trigger prediction -->
-    <button onclick="predictScore()">Predict Score</button>
+# Create a pipeline with preprocessing and linear regression
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('regressor', regressor)
+])
 
-    <!-- Display area for predicted score -->
-    <div id="predictedScore"></div>
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    <!-- JavaScript to handle prediction -->
-    <script>
-        function predictScore() {
-            // Retrieve user inputs
-            var subject = parseInt(document.getElementById("subjectInput").value);
-            var attention = document.getElementById("attentionInput").value;
-            var solutions = parseInt(document.getElementById("solutionsInput").value);
+# Fit the pipeline on the training data
+pipeline.fit(X_train, y_train)
 
-            // Load attention.csv data
-            var data = [];
+# Define a new observation (similar to a passenger)
+new_observation = pd.DataFrame({
+    'subject': [6],  # Assuming the next subject ID is 6
+    'attention': ['divided'],
+    'solutions': [1]
+})
 
-            // Fetch the data from attention.csv file
-            fetch('attention.csv')
-                .then(response => response.text())
-                .then(csvText => {
-                    // Parse the CSV text
-                    var rows = csvText.split('\n');
-                    var headers = rows[0].split(',');
-                    for (var i = 1; i < rows.length; i++) {
-                        var values = rows[i].split(',');
-                        var rowObject = {};
-                        for (var j = 0; j < headers.length; j++) {
-                            rowObject[headers[j].trim()] = values[j].trim();
-                        }
-                        data.push(rowObject);
-                    }
+# Predict the score for the new observation
+score_prediction = pipeline.predict(new_observation)
 
-                    // Filter data based on user inputs
-                    var filteredData = data.filter(function(row) {
-                        return parseInt(row.subject) === subject && row.attention === attention && parseInt(row.solutions) === solutions;
-                    });
-
-                    // Calculate average score
-                    var totalScore = 0;
-                    for (var i = 0; i < filteredData.length; i++) {
-                        totalScore += parseFloat(filteredData[i].score);
-                    }
-                    var averageScore = filteredData.length > 0 ? totalScore / filteredData.length : 0;
-
-                    // Display the predicted score
-                    document.getElementById("predictedScore").innerText = "Predicted Score: " + averageScore.toFixed(2);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        }
-    </script>
-
-</body>
-</html>
+# Print the predicted score
+print('\nPredicted Score:')
+print(score_prediction[0])
