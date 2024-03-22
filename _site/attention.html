@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Score Prediction</title>
+    <title>Score Prediction and Probability Calculator</title>
 </head>
 <body>
-
     <h2>Score Prediction</h2>
 
     <!-- Input fields for subject, attention, and solutions -->
@@ -25,8 +24,25 @@
     <!-- Display area for predicted score -->
     <div id="predictedScore"></div>
 
-    <!-- JavaScript to handle prediction -->
+    <!-- Button to calculate probability -->
+    <h2>Probability Calculator</h2>
+
+    <label for="subjectInputProb">Subject:</label>
+    <input type="text" id="subjectInputProb" placeholder="Type here">
+
+    <label for="attentionInputProb">Attention:</label>
+    <input type="text" id="attentionInputProb" placeholder="Type here">
+
+    <label for="solutionsInputProb">Solutions:</label>
+    <input type="text" id="solutionsInputProb" placeholder="Type here">
+
+    <div>
+        <button onclick="calculateProbability()">Calculate Probability of score above 9.0/10.0</button>
+    </div>
+
+    <!-- JavaScript to handle prediction and probability calculation -->
     <script>
+        // Function to predict score
         function predictScore() {
             // Retrieve user inputs
             var subject = parseInt(document.getElementById("subjectInput").value);
@@ -34,7 +50,7 @@
             var solutions = parseInt(document.getElementById("solutionsInput").value);
 
             // Load attention.csv data
-            var attention_data = [ ];
+            var data = [];
 
             // Fetch the data from attention.csv file
             fetch('attention.csv')
@@ -71,22 +87,27 @@
                     console.error('Error fetching data:', error);
                 });
         }
+
+        // Function to calculate probability
+        function calculateProbability() {
+            // Retrieve user inputs
+            var subject = document.getElementById("subjectInputProb").value;
+            var attention = document.getElementById("attentionInputProb").value;
+            var solutions = document.getElementById("solutionsInputProb").value;
+
+            // Perform some calculations to determine probability
+            // For demonstration purposes, let's say probability is higher if subject is Math and attention is focused
+            var probability = 0.5; // Default probability
+
+            if (subject === "Math" && attention === "focused") {
+                probability = 0.8; // Higher probability for Math and focused attention
+            } else if (subject === "History" && attention === "divided" && parseInt(solutions) >= 2) {
+                probability = 0.7; // Higher probability for History, divided attention, and multiple solutions
+            }
+
+            // Display the calculated probability
+            alert("Probability of score above 9.0/10.0: " + (probability * 100).toFixed(2) + "%");
+        }
     </script>
-</head>
-<body>
-    <h1>Probability Calculator</h1>
-
-    <label for="subjectInput">Subject:</label>
-    <input type="text" id="subjectInput" placeholder="Type here">
-
-    <label for="attentionInput">Attention:</label>
-    <input type="text" id="attentionInput" placeholder="Type here">
-
-    <label for="solutionsInput">Solutions:</label>
-    <input type="text" id="solutionsInput" placeholder="Type here">
-
-    <div>
-        <button onclick="calculateProbability()">Calculate Probability of score above 9.0/10.0</button>
-    </div>
 </body>
 </html>
