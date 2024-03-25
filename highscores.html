@@ -1,31 +1,59 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>SickMathGames</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <title>SickMathGames</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet" href="./styles/general.css">
+  <link rel="stylesheet" href="./styles/site-header.css">
+  <link rel="stylesheet" href="./styles/main-nav-container.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-logo" href="index.html">
+      <div class="site-name">
+        <img src="images/math-icon.png">
+        <p>SickMathGames.com</p>
+      </div>
+    </a>
+  </header>
+  <nav class="main-nav-container">
+    <a href="javascript:history.back()" class="back-button"><img src="images/back-icon.png" width="60px"></a>
+    <a class="main-nav-title">Highscores</a>
+    <a href="highscore_2048elements.html" class="main-nav-subtitle">2048 Elements</a>
+    <a href="index2.html" class="main-nav-subtitle">Chemical Merge</a>
+    <a href="tetris.html" class="main-nav-subtitle">Tetris</a>
+    <a href="index3.html" class="main-nav-subtitle">Ping Pong</a>
+  </nav>
 
-    <link rel="stylesheet" href="./styles/general.css">
-    <link rel="stylesheet" href="./styles/site-header.css">
-    <link rel="stylesheet" href="./styles/main-nav-container.css">
-  </head>
-  <body>
-    <header class="site-header">
-        <a class="site-logo" href="index.html">
-          <div class="site-name">
-            <img src="images/math-icon.png">
-            <p>SickMathGames.com</p>
-          </div>
-        </a>
-    </header>
-    <nav class="main-nav-container">
-        <a href="javascript:history.back()" class="back-button"><img src="images/back-icon.png" width="60px"></div>
-        <a class="main-nav-title">Highscores</a>
-        <a href="highscore_2048elements.html" class="main-nav-subtitle">2048 Elements</a>
-        <a href="index2.html" class="main-nav-subtitle">Chemcial Merge</a>
-        <a href="tetris.html" class="main-nav-subtitle">Tetris</a>
-        <a href="index3.html" class="main-nav-subtitle">Ping Pong</a>
-    </nav>
-  </body>
+  <div id="highscores">
+    <h1>High Scores</h1>
+    <ul id="highscoreList">
+      <!-- High scores will be displayed here -->
+    </ul>
+  </div>
+
+  <script>
+    // Fetch and display high scores when the page loads
+    window.addEventListener('load', function() {
+      fetch('/api/highscores')
+        .then(response => response.json())
+        .then(data => {
+          const highscoreList = document.getElementById('highscoreList');
+          highscoreList.innerHTML = ''; // Clear existing high scores
+
+          data.forEach(score => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${score.username}: ${score.time}`;
+            highscoreList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching high scores:', error);
+        });
+    });
+  </script>
+</body>
 </html>
