@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memory Game High Scores</title>
-  <link rel="stylesheet" href="highscores.css"> <!-- Link to external CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highscores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Memory Game High Scores</h1>
-  </header>
-  
-  <main>
-    <section id="highscores">
-      <h2>Top 10 High Scores</h2>
-      <ul id="highscoreList"></ul>
-    </section>
+    <h3>Get highscore details</h3>
+    <form id="formToGetOneScoreDetail">
+        <label for="UserTime"><b>User time to get details:</b></label>
+        <input type="text" id="UserTime" name="UserTime" /><br /><br />
+        <button type="submit" value="btnToGetScoreDetail" id="get_highscore">Get Score Details</button>
+        <div id="getOneScoreDetailResponse"></div>
+    </form>
+    <br><br><br>
 
-    <section id="submitScore">
-      <h2>Submit Your High Score</h2>
-      <form id="submitForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" required><br>
-        <label for="completionTime">Completion Time (seconds):</label>
-        <input type="number" id="completionTime" required><br>
-        <button type="submit">Submit</button>
-      </form>
-    </section>
-  </main>
+    <h3>Create a new Highscore</h3>
+    <form id="myForm">
+        <label for="UserTime">New User Time:</label>
+        <input type="text" id="UserTime" name="UserTime" /><br /><br />
+        <label for="Score">Score:</label>
+        <input type="text" id="Score" name="Score" /><br /><br />
+        <button type="submit" value="Submit" id="create_highscore">Create New Highscore</button>
+    </form>
+    <br><br>
 
-  <script src="highscores.js"></script> <!-- Link to external JavaScript file -->
+    <h3>All Highscores</h3>
+    <table id="HighscoreTable">
+        <!-- Table headers go here -->
+        <thead>
+            <tr>
+                <th>User Time</th>
+                <th>Score</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div id="editModalBackdrop" class="modal-backdrop">
+        <div id="editModal" class="modal-content">
+            <button id="closeModal" class="close-modal">X</button>
+            <form id="editForm">
+                <label for="editUserTime">User Time:</label>
+                <input type="text" id="editUserTime" name="editUserTime" /><br /><br />
+                <label for="editScore">Score:</label>
+                <input type="text" id="editScore" name="editScore" /><br /><br />
+                <input type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
