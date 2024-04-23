@@ -1,126 +1,85 @@
-// JavaScript code goes here
-const API_URL = '/api/highscores/';
-
 document.addEventListener("DOMContentLoaded", function () {
-    loadItems();
-    document.getElementById("closeModal").addEventListener("click", function () {
-        document.getElementById("editModalBackdrop").style.display = "none"; // close pop up edit form
-    });
-});
+    const API_URL = 'http://127.0.0.1:8086/api/score/';
 
-// Get all highscore items
-function loadItems() {
-    fetch(API_URL, {
-        method: 'GET'
-    })
-    .then((response) => response.json())
-    .then(data => {
-        displayItems(data);
-    })
-    .catch(error => {
-        console.error("Error calling get all highscores:", error)
-    });
-}
+    const getScoreButton = document.getElementById("get_score");
+    if (getScoreButton) {
+        getScoreButton.addEventListener("click", getScore);
+    } else {
+        console.log("Get Score Button Not Found");
+    }
 
-function displayItems(items) {
-    const table = document.getElementById("HighscoreTable");
-
-    items.forEach((highscore) => {
-        const row = table.insertRow();
-        row.setAttribute("data-id", highscore.id);
-
-        ["user_time", "score"].forEach((field) => {
-            const cell = row.insertCell();
-            cell.innerText = highscore[field];
-        });
-
-        const editCell = row.insertCell();
-        const editButton = document.createElement("button");
-        editButton.innerHTML = "Edit";
-        editButton.addEventListener("click", () => editHighscore(highscore.user_time, highscore.score));
-        editCell.appendChild(editButton);
-
-        const deleteCell = row.insertCell();
-        const deleteButton = document.createElement("button");
-        deleteButton.innerText = "Delete";
-        deleteButton.addEventListener("click", () => deleteHighscore(highscore.user_time, row));
-        deleteCell.appendChild(deleteButton);
-    });
-}
-
-// Edit highscore
-function editHighscore(user_time, score) {
-    console.log('Edit Highscore:', user_time);
-
-    const form = document.getElementById("editForm");
-    form.querySelector("#editUserTime").value = user_time;
-    form.querySelector("#editScore").value = score;
-
-    document.getElementById("editModalBackdrop").style.display = "block"; // show pop up edit modal
-}
-
-// Delete highscore
-function deleteHighscore(user_time, row) {
-    console.log('Delete Highscore:', user_time);
-
-    const confirmation = prompt('Type "DELETE" to confirm.');
-    if (confirmation === "DELETE") {
-        const payload = {
-            user_time
-        };
-
-        fetch(API_URL, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload)
-        })
-        .then((response) => {
-            if (response.ok) {
-                console.log("Successfully deleted", user_time);
-                location.reload();
+    function loadItems() {
+        fetch(API_URL)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 return response.json();
-            } else {
-                alert("Server error");
-                throw new Error("Server");
-            }
+            })
+            .then((data) => {
+                console.log("API Response:", data);
+                displayItems(data);
+            })
+            .catch((error) => console.error("Error calling get all highscores:", error));
+    }
+
+    function displayItems(items) {
+        const table = document.getElementById("HighscoreTable");
+        if (!table) {
+            console.error("Table element with ID 'HighscoreTable' not found");
+            return;
+        }
+
+        // Clear existing table rows
+        table.innerHTML = '';
+
+        items.forEach((highscore) => {
+            const row = table.insertRow();
+            row.setAttribute("data-id", highscore.id);
+
+            ["user_time", "feedback"].forEach((field) => { // Adjusted fields
+                const cell = row.insertCell();
+                cell.innerText = highscore[field];
+            });
         });
     }
-}
 
-// Create highscore
-document.getElementById("create_highscore").addEventListener("click", submitForm);
+    function getScore(event) {
+        event.preventDefault();
 
-function submitForm(event) {
-    event.preventDefault();
+        const userTime = document.getElementById("UserTime").value;
+        console.log("User Time:", userTime);
 
-    const form = document.getElementById('myForm');
-    const user_time = parseInt(form.elements['UserTime'].value);
-    const score = form.elements['Score'].value;
+        fetch(API_URL)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("API Response:", data);
+                const feedback = findFeedback(data, userTime);
+                console.log("Feedback:", feedback);
+                displayFeedback(feedback);
+            })
+            .catch((error) => console.error("Error:", error));
+    }
 
-    const payload = {
-        user_time,
-        score
-    };
+    function findFeedback(data, userTime) {
+        const score = data.find((item) => item.user_time === parseInt(userTime));
+        return score ? score.feedback : "Score not found";
+    }
 
-    fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-    })
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
+    function displayFeedback(feedback) {
+        const feedbackDiv = document.getElementById("getScoreResponse");
+        if (feedbackDiv) {
+            feedbackDiv.innerText = `Feedback: ${feedback}`;
         } else {
-            alert("Server error");
-            throw new Error("Server");
+            console.log("Feedback Div Not Found");
         }
-    })
-    .then((data) => {
-        location.reload();
-    })
-    .catch((error) => console.error("Error:", error));
-}
+    }
+
+    // Call loadItems when the page loads
+    loadItems();
+});
