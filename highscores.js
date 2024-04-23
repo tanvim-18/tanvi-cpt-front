@@ -8,42 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Get Score Button Not Found");
     }
 
-    function loadItems() {
-        fetch(API_URL)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("API Response:", data);
-                displayItems(data);
-            })
-            .catch((error) => console.error("Error calling get all highscores:", error));
-    }
-
-    function displayItems(items) {
-        const table = document.getElementById("HighscoreTable");
-        if (!table) {
-            console.error("Table element with ID 'HighscoreTable' not found");
-            return;
-        }
-
-        // Clear existing table rows
-        table.innerHTML = '';
-
-        items.forEach((highscore) => {
-            const row = table.insertRow();
-            row.setAttribute("data-id", highscore.id);
-
-            ["user_time", "feedback"].forEach((field) => { // Adjusted fields
-                const cell = row.insertCell();
-                cell.innerText = highscore[field];
-            });
-        });
-    }
-
     function getScore(event) {
         event.preventDefault();
 
@@ -79,7 +43,4 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Feedback Div Not Found");
         }
     }
-
-    // Call loadItems when the page loads
-    loadItems();
 });
