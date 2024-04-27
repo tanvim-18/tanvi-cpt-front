@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function findFeedback(data, userTime) {
         const score = data.find((item) => item.user_time === parseInt(userTime));
-        return score ? score.feedback : "Score not found";
+        return score ? score.feedback : "Time is missing, or is less than 1 characters";
     }
 
     function displayFeedback(feedback) {
