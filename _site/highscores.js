@@ -46,24 +46,20 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Feedback Div Not Found");
         }
     }
-//
+
     function addToScoreTable(userTime, feedback, userName) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+        const newRow = scoreTableBody.insertRow();
+        newRow.innerHTML = `
             <td>${userTime}</td>
-            <td>${feedback}</td>
             <td>${userName}</td>
-            <td><button onclick="deleteScore(this)">Delete</button></td>
+            <td>${feedback}</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
         `;
-        scoreTableBody.appendChild(row);
+    }
+
+    function deleteRow(button) {
+        const row = button.closest('tr');
+        row.remove();
     }
 });
 
-function deleteScore(button) {
-    const row = button.closest('tr');
-    if (row) {
-        row.remove();
-    } else {
-        console.error("Row not found");
-    }
-}
