@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const API_URL = 'http://127.0.0.1:8086/api/score/';
+    const scoreTableBody = document.querySelector('#scoreTable tbody');
 
     const getScoreButton = document.getElementById("get_score");
     if (getScoreButton) {
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const userTime = document.getElementById("UserTime").value;
+        const userName = prompt("Please enter your name:");
         console.log("User Time:", userTime);
 
         fetch(API_URL)
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const feedback = findFeedback(data, userTime);
                 console.log("Feedback:", feedback);
                 displayFeedback(feedback);
+                addToScoreTable(userTime, feedback, userName);
             })
             .catch((error) => console.error("Error:", error));
     }
@@ -43,4 +46,24 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Feedback Div Not Found");
         }
     }
+//
+    function addToScoreTable(userTime, feedback, userName) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${userTime}</td>
+            <td>${feedback}</td>
+            <td>${userName}</td>
+            <td><button onclick="deleteScore(this)">Delete</button></td>
+        `;
+        scoreTableBody.appendChild(row);
+    }
 });
+
+function deleteScore(button) {
+    const row = button.closest('tr');
+    if (row) {
+        row.remove();
+    } else {
+        console.error("Row not found");
+    }
+}

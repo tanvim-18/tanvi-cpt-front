@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Time Score</title>
     <style>
-        #HighscoreTable {
+        #scoreTable {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        #HighscoreTable th, #HighscoreTable td {
+        #scoreTable th, #scoreTable td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
-        #HighscoreTable th {
+        #scoreTable th {
             background-color: #837dac;
         }
         /* Add styles for form labels */
@@ -25,7 +25,7 @@
         }
         /* Add styles for buttons */
         button {
-            background-color: #4c7daf; /* ble background color */
+            background-color: #4c7daf; /* blue background color */
             color: white;
             padding: 10px 15px;
             border: none;
@@ -33,7 +33,7 @@
             cursor: pointer;
         }
         /* Style the edit and delete buttons in the table */
-        #HighscoreTable button {
+        #scoreTable button {
             background-color: #6021f3; /* purple background color */
             color: white;
             padding: 5px 10px;
@@ -54,9 +54,21 @@
     <form id="formToGetScore">
         <label for="UserTime"><b>Enter your time:</b></label>
         <input type="number" id="UserTime" name="UserTime" min="1" /><br /><br />
-        <button type="submit" value="btnToGetScore" id="get_score">Get Score</button>
+        <button type="button" id="get_score">Get Score</button>
         <div id="getScoreResponse"></div>
     </form>
+
+    <table id="scoreTable">
+        <thead>
+            <tr>
+                <th>User Time</th>
+                <th>Feedback</th>
+                <th>User Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
     <script src="highscores.js"></script>
 </body>
