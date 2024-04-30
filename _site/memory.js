@@ -1,3 +1,5 @@
+// This is the start of memory.js
+
 // Variables
 var startTime; // Variable to store the start time of the game
 var em = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar"];
@@ -140,3 +142,5 @@ function change(x) {
 
 // basecode found on github
 //I modified everything in order to fit my project, like adding the elements of the periodic table into the list
+
+// This is the end of memory.js

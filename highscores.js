@@ -1,3 +1,5 @@
+//This is the start of highscores.js
+
 function deleteRow(button) {
     const row = button.closest('tr');
     const userTime = row.cells[0].textContent; // Get the userTime from the first cell
@@ -137,9 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 invalidTimes.push(userTime); // Add to invalidTimes array
             } else {
                 validTimes.push(userTime); // Add to validTimes array
-            }
-            
-            
+            } 
         });
 
         // Return the results
@@ -152,3 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //If any userTime is less than 1, it returns true; otherwise, it returns false.
 
 //basecode for everything given by teacher
+
+
+//This is the end of highscores.js

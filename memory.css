@@ -1,3 +1,5 @@
+/* This is the start of memory.css*/
+
 @import url('https://fonts.googleapis.com/css2?family=Biryani:wght@800&display=swap');
 * {
     font-family: 'Biryani', sans-serif;
@@ -148,3 +150,5 @@ button:hover, button:active {
 
 /* basecode found on github
 I modified everything in order to fit my project, like adding the elements of the periodic table into the list
+
+/* This is the end of memory.css*/
