@@ -6,6 +6,7 @@ I also made a memory matching game. The purpose of the project that we created w
 - I worked on the highscores.html, highscores.js, and highscores.css code on the frontend. 
 - I worked on score.py in api, scorey.py in model, main.py, and scores.json
 - All the basecode was from my teacher, which I modified to fit my feature
+- I used ChatGPT to help me with certain parts, but I modified all the code to fit my feature
 
 ## Memory Matching Game
 - For this game you could choose different game modes by grid size for difficulty
