@@ -1,5 +1,9 @@
-# 2048 Cupcakes
-[2048 Cupcakes](https://henry7720.github.io/2048-cupcakes/) is a [2048](https://github.com/gabrielecirulli/2048/)-based game that uses almost exactly the same code, yet, uses cupcake images in place of the numbers.
-I figured that if I showed this to people, they might be able to easily make their own clones!
+I worked on this project with 3 other team members. My main contributions include the highscores api that I added
+I also made a memory matching game
 
-**Here's a hint (for making your own):** go to `style/main.css` at line [`436`](style/main.css#L436): notice how there's a `background` property? Enjoy!
+## Highscores API
+- The purpose of this feature is to input your time after playing the game and put it in the leaderboard to get a feedback for a certain score
+- I worked on the highscores.html, highscores.js, and highscores.css code on the frontend. 
+
+## Memory Matching Game
+- For this game you could choose different game modes 

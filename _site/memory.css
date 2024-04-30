@@ -8,9 +8,9 @@ html {
 }
 body {
     margin:0px;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#4481eb), to(#04bedd));
-    background-image: -o-linear-gradient(top, #4481eb 0%, #04bedd 100%);
-    background-image: linear-gradient(to bottom, #4481eb 0%, #04bedd 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#9d44eb), to(#df7ff4));
+    background-image: -o-linear-gradient(top, #9d44eb 0%, #df7ff4 100%);
+    background-image: linear-gradient(to bottom, #9d44eb 0%, #df7ff4 100%);
 }
 
 p {
@@ -145,3 +145,6 @@ button {
 button:hover, button:active {
     outline:0;
 }
+
+/* basecode found on github
+I modified everything in order to fit my project, like adding the elements of the periodic table into the list

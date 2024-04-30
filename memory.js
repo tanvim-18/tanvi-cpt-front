@@ -137,3 +137,6 @@ function change(x) {
     }
   }
 }
+
+// basecode found on github
+//I modified everything in order to fit my project, like adding the elements of the periodic table into the list
